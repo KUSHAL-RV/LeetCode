@@ -1,46 +1,25 @@
-class Solution(object):
-    def threeSum(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[List[int]]
-        """
-        import numpy as np
-        nums=np.sort(nums)
-        
-        res=[]
-        
-        
-        for i ,a in enumerate(nums):
-            if i>0 and a==nums[i-1]:
+class Solution:
+    def threeSum(self, nums: list[int]) -> list[list[int]]:
+        n=len(nums)
+        nums.sort()
+        a=[]
+        for i in range(n):
+            if i>0 and nums[i]==nums[i-1]:
                 continue
-            start=i
- 
-            p1=start+1
-            p2=len(nums)-1
-            out=[]
+            p1=i+1
+            p2=n-1
             while p1<p2:
-                s=a+nums[p1]+nums[p2]
-                if s<0:
-                    p1+=1
-                        
-                elif s>0:
+                sum=nums[i]+nums[p1]+nums[p2]
+                if sum>0:
                     p2-=1
-                else :
-                    res.append([a,nums[p1],nums[p2]])
-                    p1 += 1
-                    p2 -= 1
-                    while p1 < p2 and nums[p1] == nums[p1 - 1]:
-                        p1 += 1
-
-                    while p1 < p2 and nums[p2] == nums[p2 + 1]:
-                        p2 -= 1
-            
-        return res
-
-        
-
-        
-
-
-
-        
+                elif sum<0:
+                    p1+=1
+                else:
+                    a.append([nums[i],nums[p1],nums[p2]])
+                    p1+=1
+                    p2-=1
+                    while p1<p2 and nums[p1]==nums[p1-1]:
+                        p1+=1
+                    while p1<p2 and nums[p2]==nums[p2+1]:
+                        p2-=1
+        return a        
